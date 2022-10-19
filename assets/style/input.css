@@ -1,0 +1,27 @@
+.input-box{
+    position: relative;
+}
+
+.input-label{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    transition: .5s;
+    font-size: 15px;
+}
+
+.input-user{
+    color: white;
+    border: none;
+    background: none;
+    outline: none;
+    border-bottom: 1px solid white;
+    width: 100%;
+}
+
+.input-user:focus ~ .input-label, .input-user:valid ~ .input-label{
+    top: -20px;
+    color: dodgerblue;
+    font-size: 12px;
+}
