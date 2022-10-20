@@ -6,7 +6,7 @@
         
         public function getPage(){
             
-            return RenderView::render('cadastro');
+           return RenderView::render('cadastro');
            
         }
 

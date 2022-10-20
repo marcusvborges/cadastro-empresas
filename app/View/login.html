@@ -14,18 +14,18 @@
         <div class="row">
           <div class="col-insert">
                 
-                <form action="http://localhost/cadastro-empresas/" method="POST">
+                <form action="login/verificaLogin" method="POST">
                     <div>
                         <h1 class="tittle-login">Login</h1>
                     </div>
                    
                     <div class="input-box">
-                        <input type="text" name="" id="" class="input-user" >
+                        <input type="text" name="email" id="nick" class="input-user" required>
                         <label for="nick" class="input-label">Email</label>
                     </div>
                     <br><br>
                     <div class="input-box">
-                        <input type="password" name="" id="" class="input-user" >
+                        <input type="password" name="senha" id="pass" class="input-user" required>
                         <label for="pass" class="input-label">Password</label>
                     </div>
                     
@@ -37,7 +37,7 @@
                 <h2>Bem vindo!</h2>
                 <h3 class="h3">Ralize o seu login ou cadastre-se abaixo.</h3>
 
-                <a class="cadastro-button" href="http://localhost/cadastro-empresas/app/View/cadastro.html">Cadastro</a>
+                <a class="cadastro-button" href="cadastro">Cadastro</a>
             </div>         
           </div>
         </div>

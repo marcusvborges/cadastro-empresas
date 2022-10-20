@@ -1,0 +1,13 @@
+<?php
+
+    use app\Utils\RenderView;
+
+    class CadastroEmpresasController extends GenericController{
+        
+        public function getPage(){
+            return RenderView::render('cadastroEmpresas');
+        }
+
+    }
+
+?>
