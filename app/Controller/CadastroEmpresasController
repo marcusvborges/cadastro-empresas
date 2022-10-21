@@ -1,11 +1,38 @@
 <?php
 
     use app\Utils\RenderView;
+    use app\Data\Config;
 
     class CadastroEmpresasController extends GenericController{
         
         public function getPage(){
-            return RenderView::render('cadastroEmpresas');
+            echo RenderView::render('cadastroEmpresas');
+        }
+
+
+        public function postEmpresa(){
+
+            $conexao = Config::getConexao();
+            
+            $empresa = new Empresa;  
+            $empresa->nome = $_POST['nome'];  
+            $empresa->cnpj = $_POST['cnpj'];     
+            $empresa->data_fund = $_POST['data_fund'];  
+            $empresa->email = $_POST['email'];  
+            $empresa->telefone = $_POST['telefone'];  
+            $empresa->cep = $_POST['cep'];  
+            $empresa->endereco = $_POST['endereco'];  
+         
+
+            $sql = "INSERT INTO empresas (nome,cnpj,data_fund,email,telefone,cep,endereco) 
+            VALUES ('$empresa->nome', '$empresa->cnpj', '$empresa->data_fund', '$empresa->email',
+            '$empresa->telefone','$empresa->cep','$empresa->endereco')";
+           
+            $result = $conexao->query($sql);
+
+            header('Location: http://localhost/cadastro-empresas/cadastroEmpresas');
+            return $result;  
+            
         }
 
     }

@@ -6,7 +6,7 @@
         
         public function getPage(){
             
-            return RenderView::render('login'); 
+            echo RenderView::render('login'); 
 
         }
 
@@ -14,7 +14,7 @@
         {
 
             if(isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha'])){           
-                $conexao = Config::getConn();
+                $conexao = Config::getConexao();
 
                 $usuario = new Usuario;
                 $usuario->email =  $_POST['email'];

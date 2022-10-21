@@ -5,7 +5,7 @@
     class Config{
 
         private static $conexao;
-        public static function getConn() {
+        public static function getConexao() {
             try{
                 self::$conexao = new \PDO("pgsql:host=localhost;dbname=CadastroDeEmpresas;user=postgres;password=ADMIN");
                 //$conexao->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);     

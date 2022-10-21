@@ -2,6 +2,9 @@ body{
     font-family: Arial, Helvetica, sans-serif;  
     background-color: rgb(176, 176, 176);
     height: 100vh;
+    
+}
+.corpo{
     display: flex; 
     align-items: center;  
     justify-content: center;
@@ -36,7 +39,7 @@ body{
 }
 
 .cadastrar-empresas{
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: rgb(76, 202, 89);
     color: white;
     font-weight: bold;
@@ -46,4 +49,12 @@ body{
     padding: 10px;
     width: 100%;
     cursor: pointer;
+}
+
+.button-voltar{
+    background-color: rgb(181, 0, 0);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
 }

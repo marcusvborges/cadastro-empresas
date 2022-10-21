@@ -5,7 +5,7 @@
     class HomeController extends GenericController{
         
         public function getPage(){
-            return RenderView::render('home');
+            echo RenderView::render('home');
         }
 
     }

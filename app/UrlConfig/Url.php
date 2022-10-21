@@ -34,7 +34,7 @@
                 $this->controller = 'LoginController';
                 $this->method = 'getPage';
             }
-            echo call_user_func(array(new $this->controller, $this->method), $this->params);            
+            call_user_func(array(new $this->controller, $this->method), $this->params);            
            
         }
         

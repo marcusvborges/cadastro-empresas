@@ -12,6 +12,7 @@
     require_once 'app/Controller/HomeController.php';
     require_once 'app/UrlConfig/Url.php';   
     require_once 'app/Model/Usuario.php';
+    require_once 'app/Model/Empresa.php';
     
 
     $url = new Url;

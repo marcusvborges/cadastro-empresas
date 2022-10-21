@@ -5,17 +5,18 @@
     use LDAP\Result;
 
     class Usuario{
-        private$id;
-        private $nome;
+        public $id;
+        public $nome;
         public $email;
         public $senha;
-        private$empresa;
+        public   $empresa;
 
+      
         public function __construct()
-        {
+        {        
             $this->empresa = array();
         }
-      
+
 
         public function setNome($nome){
             $this->nome  = $nome;
