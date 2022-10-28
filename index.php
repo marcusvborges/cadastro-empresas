@@ -7,7 +7,7 @@
 
     require_once 'app/Controller/GenericController.php';
     require_once 'app/Controller/LoginController.php';
-    require_once 'app/Controller/CadastroEmpresasController ';
+    require_once 'app/Controller/CadastroEmpresasController.php ';
     require_once 'app/Controller/CadastroController.php';
     require_once 'app/Controller/HomeController.php';
     require_once 'app/UrlConfig/Url.php';   

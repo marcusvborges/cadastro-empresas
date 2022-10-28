@@ -1,17 +1,14 @@
 <?php
 
-    use app\Data\Config;    
-    //use app\Data\DbConfig;
-    use LDAP\Result;
+    namespace app\Model;
 
     class Usuario{
-        public $id;
+        public $idUsuario;
         public $nome;
         public $email;
         public $senha;
-        public   $empresa;
+        public $empresa;
 
-      
         public function __construct()
         {        
             $this->empresa = array();

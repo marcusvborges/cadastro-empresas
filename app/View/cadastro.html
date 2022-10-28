@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="http://localhost/cadastro-empresas/assets/style/cadastro.css">
-    <link rel="stylesheet" href="http://localhost/cadastro-empresas/assets/style/button.css">
-    <link rel="stylesheet" href="http://localhost/cadastro-empresas/assets/style/input.css">
+    <title>Cadastro de Usuarios</title>
+    <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/cadastro.css">
+    <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/button.css">
+    <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/input.css">
 </head>
 <body>
     <div class="container">
         
-        <form action="http://localhost/cadastro-empresas/cadastro/postUsuario" method="POST">
+        <form id ="formUsuario" action="http://localhost/cadastro-empresas/cadastro/postUsuario" method="POST">
             <h2 class="tittle"><b>Formulario de usuarios</b></h2>
             
             <div class="row">
@@ -27,17 +27,19 @@
                 </div>
                 <br><br>
                 <div class="input-box">
-                    <input type="password" name="senha" id="senha" class="input-user" required>
-                    <label for="nome" class="input-label">Senha</label>                  
+                    <input type="password" name="senha" id="senha" class="input-user"  required >
+                    <label for="nome" class="input-label">Senha </label>                  
                 </div>
+                
+                <span id="msgError">
+                    
+                </span>
+
                 <input type="submit" value="Cadastrar" id="button" class="cadastrar"  name="submit" onchange="">
-            </div>   
-            
-                              
-               
-            
-            
+            </div>              
         </form>
     </div>
+    <script scr="assets/js/JQuery/jquery-3.6.1.min.js"></script>
+    <script scr="assets/js/script.js"></script>
 </body>
 </html>

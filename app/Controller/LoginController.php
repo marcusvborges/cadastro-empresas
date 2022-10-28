@@ -1,6 +1,7 @@
 <?php
     use app\Data\Config;
     use app\Utils\RenderView;
+    use app\Model\Usuario;
 
     class LoginController extends GenericController{
         
@@ -16,7 +17,7 @@
             if(isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha'])){           
                 $conexao = Config::getConexao();
 
-                $usuario = new Usuario;
+                $usuario = new Usuario();
                 $usuario->email =  $_POST['email'];
                 $usuario->senha =  $_POST['senha'];
 
