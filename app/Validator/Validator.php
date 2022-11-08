@@ -13,13 +13,13 @@
             
         }
 
-        public static function validaEmail($email){ 
-            if(preg_match('/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i', $email)){
-                return true;
-            } else { 
-                return false;
-            }
-        }
+        // public static function validaEmail($email){ 
+        //     if(preg_match('/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i', $email)){
+        //         return true;
+        //     } else { 
+        //         return false;
+        //     }
+        // }
 
     }
 

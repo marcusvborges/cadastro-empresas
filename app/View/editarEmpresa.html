@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Empresas</title>
+    <title>Editar Empresa</title>
     <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/cadastroEmpresas.css">
     <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/button.css">
     <link rel="stylesheet" href="http://localhost/cadastro-empresas/app/View/assets/style/input.css">
@@ -18,15 +18,15 @@
         Voltar
     </a>
     <div class="corpo">
-        <div class="container">     
-            <form name="formempresa" action="http://localhost/cadastro-empresas/cadastroEmpresas/postEmpresa" method="POST">
+        <div class="container" style="height: 610px;">     
+            <form action="http://localhost/cadastro-empresas/editarEmpresa/editEmpresa" method="POST">
                 
                 
-                <div class="row">
-                    <p class="tittle"><b>Formulario de Empresas</b></p>
+                <div class="row" onload="preencheCampo()">
+                    <p class="tittle"><b>Editar Empresa</b></p>
                     <div class="input-box">
                         <input type="text" name="nome" id="nome" class="input-user" required>
-                        <label for="nome" class="input-label">Nome da Empresa</label>                  
+                        <label for="nome" class="input-label">Nome da Empresas</label>                  
                     </div>  
                     <div class="input-box">
                         <input type="text" name="cnpj" id="cnpj" class="input-user" required>
@@ -39,7 +39,7 @@
                                         
                     </div>
                     <div class="input-box">
-                        <input type="email" name="email" id="email" class="input-user" required onblur="validaEmail()">
+                        <input type="text" name="email" id="email" class="input-user" required>
                         <label for="emailEmp" class="input-label">E-mail</label>                  
                     </div>
                     <div class="input-box">
@@ -47,15 +47,18 @@
                         <label for="telefone" class="input-label">Telefone</label>                  
                     </div>
                     <div class="input-box">
-                        <input type="text" name="cep" id="cep" class="input-user" maxlength="8" value="" onblur="pesquisacep(this.value);" required> 
-                        <label for="cep" class="input-label">CEP</label>                                       
+                        <input type="text" name="cep" id="cep" class="input-user" onblur="pesquisacep(this.value);" required>
+                        <label for="cep" class="input-label">CEP</label>                  
                     </div>
                     <div class="input-box">
                         <input type="text" name="endereco" id="endereco" class="input-user" required>
                         <label for="endereco" class="input-label">Endereço</label>                  
                     </div>
-                    <input type="hidden" name="id_usuario">
-                    <input type="submit" value="Cadastrar" id="button" class="cadastrar-empresas"  name="submit">
+                    <input type="submit" value="Editar" id="button" class="cadastrar-empresas" name="submit">
+                    <br><br>
+                    <a href="http://localhost/cadastro-empresas/cadastroEmpresas/deleteEmpresa" style="text-decoration: none; justify-content: center; display: flex; color: white;
+                     background-color: rgb(181, 0, 0); border-radius: 10px;  padding: 10px;">Deletar</a>
+                 
                 </div>                            
             </form>
         </div>
@@ -106,17 +109,17 @@
                 idcss('telefone').onkeypress = function(){
                     mask( this, masktel );
                 }
-                
+
                 idcss('cnpj').setAttribute('maxlength', 18);
                 idcss('cnpj').onkeypress = function(){
                     mask( this, maskcnpj );
                 }
-
+ 
                 idcss('cep').setAttribute('maxlength', 10);
                 idcss('cep').onkeypress = function(){
                     mask( this, maskcep );
                 }
-
+  
                 idcss('nome').setAttribute('minlength', 5);
                 idcss('nome').addEventListener('required', function(){
                     idcss('nome').setCustomValidity('');
@@ -124,7 +127,8 @@
                 idcss('nome').addEventListener('change', function(){
                     idcss('nome').setCustomValidity('');
                 }, false);
-                    
+                            
+
             }
 
             function limpa_formulário_cep() {
@@ -170,21 +174,49 @@
                 }
             };
 
-            function validaEmail(){
-                var email = formempresa.email.value;
-           
+            function preencheCampo(){
 
-                function limpa_campo_email() {
-                    document.getElementById('email').value=("");
-                
+                var xhr = new XMLHttpRequest();
+                var empresaList = document.querySelector(".empresaList");
+
+                var nome = document.querySelector("#nome");
+                var cnpj = document.querySelector("#cnpj");
+                var data_fund = document.querySelector("#data_fund");
+                var email = document.querySelector("#email");
+                var telefone = document.querySelector("#telefone");
+                var cep = document.querySelector("#cep");
+                var endereco = document.querySelector("#endereco");
+
+                var result;     
+
+                xhr.responseType = "json"
+                xhr.onreadystatechange = function(){
+
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        result = xhr.response;
+                        console.log(result);
+
+                        for(var i = 0; i < result.length; i++){                       
+                                
+                                nome.value = result[i].nome;
+                                cnpj.value = result[i].cnpj;
+                                data_fund.value = result[i].data_fund;
+                                email.value = result[i].email;
+                                telefone.value = result[i].telefone;
+                                cep.value = result[i].cep;
+                                endereco.value = result[i].endereco;
+                        }
+                    }
                 }
+            
 
-                if(email.includes('email')){
-                    limpa_campo_email();
-                    alert('Email inválido!');   
-                }
-
+                xhr.open("GET",`http://localhost/cadastro-empresas/cadastroEmpresas/getEmpresa`)
+            
+                xhr.send();
             }
+
+            preencheCampo();
+
 
     </script>
 

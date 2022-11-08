@@ -1,4 +1,5 @@
 <?php
+
     use app\Data\Config;
     use app\Utils\RenderView;
     use app\Model\Usuario;
@@ -27,10 +28,14 @@
                 $result = $conexao->query($sql);
 
 
-                if($result->rowCount()){  
+                if($result->rowCount()){
+                    $dados = $result->fetch();
+                    
+                    $_SESSION['idusuario'] = $dados['id_usuario'];
                     $_SESSION['email'] = $usuario->email;
                     $_SESSION['senha'] = $usuario->senha;
-                    header('Location: http://localhost/cadastro-empresas/home');                       
+
+                    header('Location: http://localhost/cadastro-empresas/home');                     
                     
                 } else { 
                     unset($_SESSION['email']);

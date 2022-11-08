@@ -7,6 +7,7 @@ body{
     justify-content: center;
 }
 
+
 .tittle{
     margin: 50px;
 }
@@ -30,4 +31,3 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-

@@ -3,7 +3,9 @@ body{
     background-color: rgb(176, 176, 176);
     height: 100vh;
     
+    
 }
+
 .corpo{
     display: flex; 
     align-items: center;  
@@ -16,7 +18,6 @@ body{
 }
 
 .container{
-  
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0.755);
     color: white;

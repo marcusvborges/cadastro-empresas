@@ -14,29 +14,41 @@
         }
 
         public static function postUsuario(){
-
+            header('Content-Type: application/json');
+        
             $conexao = Config::getConexao();
-            
+        
             $usuario = new Usuario();  
-            $usuario->nome = $_POST['nome'];  
-            $usuario->email = $_POST['email'];     
-            
-                if(Validator::validaSenha($_POST['senha'])) {
-                    $usuario->senha = $_POST['senha'];
-                    $sql = "INSERT INTO usuarios (nome,email,senha) VALUES ('$usuario->nome', '$usuario->email', '$usuario->senha')";
-            
-                    $result = $conexao->query($sql);
+        
+            if( isset($_POST['nome']) || isset($_POST['email']) || isset($_POST['senha']))  { 
+                $nome = $usuario->nome = $_POST['nome'];  
+                $email = $usuario->email = $_POST['email'];                  
 
-                    header('Location: http://localhost/cadastro-empresas/cadastro');
-                    return $result; 
-                } else {
-                   echo json_encode("*A senha deve conter letras e numeros com, no minimo, 7 caracteres."); 
-                     
-                    //$parameters['erro'] = '*A senha deve conter letras e números com, no mínimo, 7 caracteres.';
-                    //header('Location: http://localhost/cadastro-empresas/cadastro');
-                }
-             
+                if($_POST['senha'] != Validator::validaSenha($_POST['senha'])) {
+                                                                 
+                    $msgErro = '*A senha deve conter letras e numeros com, no minimo, 7 caracteres.';                 
+                    echo json_encode($msgErro);                   
+                                          
+                } else { 
+
+                    $senha = $usuario->senha = $_POST['senha'];
+                    
+                    $sql = "INSERT INTO usuarios (nome,email,senha) VALUES (:nome, :email, :senha)";
             
+                    $result = $conexao->prepare($sql);
+
+                    $result->bindValue(':nome', $nome);
+                    $result->bindValue(':email', $email);
+                    $result->bindValue(':senha', $senha);
+                    $result->execute();
+
+                    header('Location: http://localhost/cadastro-empresas/login');
+                    
+                    echo json_encode('Usuario cadastrado com sucesso!');
+              
+                }   
+           }            
+                               
         }
 
     }
