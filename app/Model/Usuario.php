@@ -60,24 +60,24 @@
         //     return $result;
         // }
 
-        public static function cadastrar($dados){
+        // public static function cadastrar($dados){
 
-            $conexao = Config::getConexao();
+        //     $conexao = Config::getConexao();
 
-            $sql = "INSERT INTO usuarios (nome,email,senha) VALUES (:nome, :email, :senha)";
+        //     $sql = "INSERT INTO usuarios (nome,email,senha) VALUES (:nome, :email, :senha)";
            
-            $result = $conexao->query($sql);
+        //     $result = $conexao->query($sql);
            
-            $result->bindValue("nome", $dados['nome']);
-            $result->bindValue("email", $dados['email']);
-            $result->bindValue("senha", $dados['senha']);
+        //     $result->bindValue("nome", $dados['nome']);
+        //     $result->bindValue("email", $dados['email']);
+        //     $result->bindValue("senha", $dados['senha']);
 
-            if ($conexao){
-                return true;
-            }else {
-                return false;
-            }
-        }
+        //     if ($conexao){
+        //         return true;
+        //     }else {
+        //         return false;
+        //     }
+        // }
 
     }
 

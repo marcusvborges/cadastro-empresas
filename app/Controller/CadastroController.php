@@ -15,7 +15,7 @@
 
         public static function postUsuario(){
             header('Content-Type: application/json');
-        
+            //include_once("../Data/Config.php");
             $conexao = Config::getConexao();
         
             $usuario = new Usuario();  

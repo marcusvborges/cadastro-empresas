@@ -33,6 +33,8 @@
         </ul>
     </div>
     </nav>
+
+
     
     <div class="m-5">
         <table class="table table-dark table-striped">
@@ -50,18 +52,84 @@
                 </tr>
             </thead>
             <tbody class="empresaList" onload="getEmpresa()">
-               
+                <span id="msgAlerta"> </span>
             </tbody>
     
         </table>
     </div>
 
+    <!-- Inicio Modal Editar Empresa -->
 
+    <div class="modal fade" id="editEmpresaModal" tabindex="-1" aria-labelledby="editEmpresaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editEmpresaModalLabel">Editar Usuário</h5>
+                    <button type="button" class="btn btn-outline-warning btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close">Close x</button>
+                </div>
+                <div class="modal-body">
+
+                    <span id="msgAlertaErroEdit"></span>
+
+                    <form class="row g-3" id="edit-empresa-form">
+                        <input type="hidden" name="id_empresa" id="id_empresa">
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Nome da Empresa</label>
+                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome da empresa">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">CNPJ</label>
+                            <input type="text" name="cnpj" class="form-control" id="cnpj" placeholder="CNPJ">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Data de Fundação</label>
+                            <input type="date" name="data_fund" class="form-control" id="data_fund" placeholder="Data de Fundação">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="email" class="form-label">Telefone</label>
+                            <input type="text" name="telefone" class="form-control" id="telefone" placeholder="Telefone">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">CEP</label>
+                            <input type="text" name="cep" class="form-control" id="cep" onblur="pesquisacep(this.value);" placeholder="CEP">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Endereço</label>
+                            <input type="text" name="endereco" class="form-control" id="endereco" placeholder="Endereço">
+                        </div>
+                        
+                        <div class="col-12">
+                            <br>
+                            <input type="submit" class="btn btn-outline-success btn-sm" id="edit-empresa-btn" value="Editar">
+                            <a href="#"id=buttomModal></a>
+                        </div>
+                        <div class="col-12">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fim Modal Editar Empresa -->
 
     <script>
-        function getEmpresa(){
+        // Buscar Empresas
+        const getEmpresa = async(pagina) => {
             
-            var xhr = new XMLHttpRequest();
+            var xhr = await new XMLHttpRequest();
             var empresaList = document.querySelector(".empresaList")
 
             var result;     
@@ -70,53 +138,231 @@
             xhr.onreadystatechange = function(){
                 if(xhr.readyState == 4 && xhr.status == 200){
                     result = xhr.response;
-                    console.log(result);
-                
-                    if(result != "<br>Este usuário ainda não possui empresas cadastradas.<br>"){
-                        for(var i = 0; i < result.length; i++){
-                             
-                            empresaList.innerHTML += "<tr><td class='id'>"+result[i].id_empresa+
-                                                    "</td><td class='nome'>"+result[i].nome+
-                                                    "</td><td class='cnpj'>"+result[i].cnpj+
-                                                    "</td><td class='data'>"+result[i].data_fund+
-                                                    "</td><td class='email'>"+result[i].email+
-                                                    "</td><td class='telefone'>"+result[i].telefone+
-                                                    "</td><td class='cep'>"+result[i].cep+
-                                                    "</td><td class='endereco'>"+result[i].endereco+
-                                                    "</td><td>"+
-                                                        `<a class='btn btn-primary' href='http://localhost/cadastro-empresas/editarEmpresa?id_empresa=${result[i]}'>`+
-                                                            "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>"+
-                                                            "<path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207"+ 
-                                                            "2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-"+
-                                                            ".106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>"+
-                                                            "</svg>"+
-                                                        "</a>"+
-                                                        "  "+
-                                                        `<a class='btn btn-danger' href='http://localhost/cadastro-empresas/cadastroEmpresas/deleteEmpresa?id=${result[i].id_empresa}'>`+
-                                                            "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>"+
-                                                            "<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>"+
-                                                            "<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>"+
-                                                            "</svg>"+
-                                                    " </a>"+
-                                                    "<td></tr>";
-                            
+
+                    if(!result['status']){
+                        document.getElementById("msgAlerta").innerHTML = result['msg'];
+                    } else{
+                        const conteudo = document.querySelector('.empresaList');
+                        if (conteudo){
+                            conteudo.innerHTML = result['dados']
                         }
-                    } else { 
-                        empresaList.innerHTML = result;
                     }
-
-
                 }
-            }
+            }          
             
-            
-            xhr.open("GET","http://localhost/cadastro-empresas/cadastroEmpresas/getEmpresa")
+            xhr.open("GET","http://localhost/cadastro-empresas/cadastroEmpresas/getEmpresa?pagina=" + pagina)
             
             xhr.send();
         }
+        // Fim Buscar Empresas
 
-        getEmpresa();
+        getEmpresa(1);
+
+        // Buscar Empresa por ID
+        async function getEmpresaById(id) {
+            let xhr = await new XMLHttpRequest();
+
+            let result;
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    result = xhr.response;
+                    console.log(result);
+                    
+                    if(!result['status']){
+                        document.getElementById('msgAlerta').innerHTML = result['msg'];
+                    } else {
+                        document.getElementById('msgAlerta').innerHTML = "";
+                        const visModal = new bootstrap.Modal(document.getElementById('editEmpresaModal'));
+                        visModal.show();
+
+                        document.getElementById("id_empresa").value = result['dados'].id_empresa;
+                        document.getElementById("nome").value = result['dados'].nome;
+                        document.getElementById("cnpj").value = result['dados'].cnpj;
+                        document.getElementById("data_fund").value = result['dados'].data_fund;
+                        document.getElementById("email").value = result['dados'].email;
+                        document.getElementById("telefone").value = result['dados'].telefone;
+                        document.getElementById("cep").value = result['dados'].cep;
+                        document.getElementById("endereco").value = result['dados'].endereco;
+                        document.getElementById("buttomModal").innerHTML = `<a type='submit' class='btn btn-outline-danger btn-sm' onclick='deleteEmpresa(${result['dados'].id_empresa})' id='edit-empresa-btn' value='Deletar'>Deletar</a>`;
+                        
+                        
+                    }
+                
+                }
+            
+            }
+            xhr.open("GET","http://localhost/cadastro-empresas/editarEmpresa/getEmpresaById?id=" + id);
+            
+            xhr.send();
+        }   
+        //Fim Buscar Empresa por ID
+
+        // Deletar Empresa
+        async function deleteEmpresa(id){
+            
+            const dados = await fetch('http://localhost/cadastro-empresas/cadastroEmpresas/deleteEmpresa?id=' + id)
+            const result = await dados;
+            //console.log(result);
+
+            if (!result['status']){
+                document.getElementById("msgAlerta").innerHTML = result['msg'];
+            } else { 
+                document.getElementById("msgAlerta").innerHTML = result['msg'];
+                getEmpresa(1);
+            }
+        }               
+        // Fim Deletar Empresa
+
+
+        // Editar Empresa
+        const editForm = document.getElementById("edit-empresa-form");
+        if (editForm) {
+            editForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const dadosForm = new FormData(editForm);
+
+                document.getElementById("edit-empresa-btn").value = "Salvando...";
+
+                const dados = await fetch("http://localhost/cadastro-empresas/editarEmpresa/editEmpresa", {
+                    method: "POST",
+                    body: dadosForm
+                });
+
+                const result = await dados.json();
+
+                if (!result['status']) {
+                    document.getElementById("msgAlertaErroEdit").innerHTML = result['msg'];
+                } else {
+                    document.getElementById("msgAlertaErroEdit").innerHTML = result['msg'];
+                    getEmpresa(1);
+                }
+
+                console.log(result);
+
+                document.getElementById("edit-empresa-btn").value = "Salvar";
+
+            });
+        }
+        // Fim Editar Empresa
+
+
+        // Definição de mascara
+        function mask(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmask()",1)
+            }
+
+            function execmask(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+
+            function masktel(v){
+                v=v.replace(/\D/g,"");
+                v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+                v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+                return v;
+            }
+
+            function maskcnpj(v){
+                v=v.replace(/\D/g,"");                        
+                v=v.replace(/^(\d{2})(\d)/,"$1.$2");          
+                v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3");
+                v=v.replace(/\.(\d{3})(\d)/,".$1/$2");       
+                v=v.replace(/(\d{4})(\d)/,"$1-$2");
+                return v;
+            }
+
+            function maskcep(v){
+                v=v.replace(/\D/g,"");                        
+                v=v.replace(/^(\d{2})(\d)/,"$1$2");          
+                v=v.replace(/^(\d{2})(\d{3})(\d)/,"$1$2-$3");
+                return v;
+            }
+
+            function idcss( el ){
+                return document.getElementById( el );
+            }
+
+            window.onload = function(){
+                
+                idcss('telefone').setAttribute('maxlength', 15);
+                idcss('telefone').onkeypress = function(){
+                    mask( this, masktel );
+                }
+
+                idcss('cnpj').setAttribute('maxlength', 18);
+                idcss('cnpj').onkeypress = function(){
+                    mask( this, maskcnpj );
+                }
+ 
+                idcss('cep').setAttribute('maxlength', 10);
+                idcss('cep').onkeypress = function(){
+                    mask( this, maskcep );
+                }
+  
+                idcss('nome').setAttribute('minlength', 5);
+                idcss('nome').addEventListener('required', function(){
+                    idcss('nome').setCustomValidity('');
+                }, false);
+                idcss('nome').addEventListener('change', function(){
+                    idcss('nome').setCustomValidity('');
+                }, false);
+                            
+
+            }
+            // Fim Definição de mascara
+
+            // Buscar CEP
+            function limpa_formulário_cep() {
+                document.getElementById('endereco').value=("");
+                
+            }
+
+            function meu_callback(conteudo) {
+                if (!("erro" in conteudo)) {
+                    document.getElementById('endereco').value=(conteudo.logradouro);
+                    
+                }
+                else {
+                    limpa_formulário_cep();
+                    alert("CEP não encontrado.");
+                }
+            }
+
+            function pesquisacep(valor) {
+
+                var cep = valor.replace(/\D/g, '');
+
+                if (cep != "") {
+
+                    var validacep = /^[0-9]{8}$/;
+
+                    if(validacep.test(cep)) {
+
+                        document.getElementById('endereco').value="...";
+                        
+
+                        var script = document.createElement('script');
+
+                        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                        document.body.appendChild(script);
+                    } else {
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } else {
+                    limpa_formulário_cep();
+                }
+            };
+            // Fim Buscar CEP
+
         
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

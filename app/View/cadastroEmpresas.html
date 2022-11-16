@@ -62,7 +62,8 @@
     </div>
     
     <script type="text/javascript">
-   
+
+            // Definição de Mascara 
             function mask(o,f){
                 v_obj=o
                 v_fun=f
@@ -126,7 +127,10 @@
                 }, false);
                     
             }
+            // Fim Definição de Mascara
 
+
+            // Buscar CEP 
             function limpa_formulário_cep() {
                 document.getElementById('endereco').value=("");
                 
@@ -169,7 +173,9 @@
                     limpa_formulário_cep();
                 }
             };
+            // Fim Buscar CEP
 
+            // Valida Campo Email
             function validaEmail(){
                 var email = formempresa.email.value;
            
@@ -185,6 +191,7 @@
                 }
 
             }
+            //Fim Valida Campo Email
 
     </script>
 
